@@ -1,7 +1,18 @@
 global:
   scrape_interval: 15s
+  scrape_timeout: 1s
+  evaluation_interval: 15s
 
 scrape_configs:
-  - job_name: 'prometheus'
+  - job_name: push-gateway
+    scrape_interval: 15s
+    #metrics_path: /metrics
+    #scheme: http
+    static_configs:
+    - targets: ['host.docker.internal:9091']
+      labels:
+        service: 'prom-pushgateway'
+
+  - job_name: 'custome-exporter'
     static_configs:
       - targets: ['host.docker.internal:9100']

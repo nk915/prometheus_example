@@ -1,5 +1,13 @@
 version: '3.7'  # 파일 규격 버전
+
 services:       
+  pushgateway:
+    image: prom/pushgateway
+    container_name: pushgateway
+    ports:
+      - "9091:9091"
+    restart: always
+
   prometheus:
     image: prom/prometheus
     container_name: prometheus
@@ -13,7 +21,6 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
     restart: always
 
-      
   grafana:
     image: grafana/grafana
     container_name: grafana
